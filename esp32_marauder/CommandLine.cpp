@@ -21,8 +21,9 @@ void CommandLine::RunSetup() {
 String CommandLine::getSerialInput() {
   String input = "";
 
-  if (Serial.available() > 0)
+  if (Serial.available() > 0) {
     input = Serial.readStringUntil('\n');
+  } 
 
   input.trim();
   return input;
@@ -30,6 +31,9 @@ String CommandLine::getSerialInput() {
 
 void CommandLine::main(uint32_t currentTime) {
   String input = this->getSerialInput();
+
+  if (input != "")
+    Serial.println(input);
 
   this->runCommand(input);
 

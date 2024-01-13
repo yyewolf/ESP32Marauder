@@ -14,11 +14,12 @@
   //#define MARAUDER_M5STICKC
   //#define MARAUDER_MINI
   //#define MARAUDER_V4
-  #define MARAUDER_V6
+  //#define MARAUDER_V6
   //#define MARAUDER_V6_1
   //#define MARAUDER_KIT
   //#define GENERIC_ESP32
   //#define MARAUDER_FLIPPER
+  #define ESP32_S2_MINI_MARAUDER_FLIPPER
   //#define ESP32_LDDB
   //#define MARAUDER_DEV_BOARD_PRO
   //#define XIAO_ESP32_S3
@@ -71,7 +72,7 @@
   #ifdef MARAUDER_MINI
     //#define FLIPPER_ZERO_HAT
     #define HAS_BATTERY
-    #define HAS_BT
+    //#define HAS_BT
     #define HAS_BUTTONS
     #define HAS_NEOPIXEL_LED
     //#define HAS_PWR_MGMT
@@ -99,8 +100,8 @@
   #if defined(MARAUDER_V6) || defined(MARAUDER_V6_1)
     //#define FLIPPER_ZERO_HAT
     #define HAS_BATTERY
-    #define HAS_BT
-    #define HAS_BT_REMOTE
+    //#define HAS_BT
+    //#define HAS_BT_REMOTE
     #define HAS_BUTTONS
     #define HAS_NEOPIXEL_LED
     //#define HAS_PWR_MGMT
@@ -138,8 +139,15 @@
     //#define HAS_GPS
   #endif
 
+  #ifdef ESP32_S2_MINI_MARAUDER_FLIPPER
+    #define MARAUDER_FLIPPER //use the same settings as usual, we're just changing the Serial0 pins
+    #define S2_MINI_TX0 37
+    #define S2_MINI_RX0 39
+    #define SD_CS 1
+  #endif 
+
   #ifdef MARAUDER_FLIPPER
-    //#define FLIPPER_ZERO_HAT
+    #define FLIPPER_ZERO_HAT
     //#define HAS_BATTERY
     //#define HAS_BT
     //#define HAS_BUTTONS
@@ -147,10 +155,10 @@
     //#define HAS_PWR_MGMT
     //#define HAS_SCREEN
     #define HAS_GPS
-    #ifndef WRITE_PACKETS_SERIAL
-      #define HAS_SD
-      #define USE_SD
-    #endif
+    //#ifndef WRITE_PACKETS_SERIAL
+    //  #define HAS_SD
+    //  #define USE_SD
+    //#endif
     //#define HAS_TEMP_SENSOR
   #endif
 

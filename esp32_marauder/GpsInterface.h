@@ -4,10 +4,14 @@
 #define GpsInterface_h
 
 #include <MicroNMEA.h>
-#include <SoftwareSerial.h>
 #include <LinkedList.h>
-
 #include "configs.h"
+
+//SoftwareSerial causes compliation issues with ESP32-S2FN4R2 mini dev boards, but ESP doesn't have a custom IDF target for them.
+// using extra preprocessor directives here to prevent meddling with other ESP32-S2's like the flipper wifi devboard. 
+#ifndef ESP32_S2_MINI_MARAUDER_FLIPPER
+  #include <SoftwareSerial.h>
+#endif
 
 //#define GPS_TEXT_MAXLINES 5 //default:5 lines in the buffer maximum
 //#define GPS_TEXT_MAXCYCLES 1 //default:1

@@ -483,13 +483,11 @@ int WiFiScan::generateSSIDs(int count) {
 void WiFiScan::initWiFi(uint8_t scan_mode) {
   // Set the channel
   if (scan_mode != WIFI_SCAN_OFF) {
-    //Serial.println(F("Initializing WiFi settings..."));
     this->changeChannel();
   
     this->force_pmkid = settings_obj.loadSetting<bool>(text_table4[5]);
     this->force_probe = settings_obj.loadSetting<bool>(text_table4[6]);
     this->save_pcap = settings_obj.loadSetting<bool>(text_table4[7]);
-    //Serial.println(F("Initialization complete"));
   }
 }
 

@@ -196,7 +196,13 @@ void setup()
     delay(10);
   #endif
 
-  Serial.begin(115200);
+  #ifdef ESP32_S2_MINI_MARAUDER_FLIPPER
+    Serial.begin(115200,SERIAL_8N1,S2_MINI_TX0,S2_MINI_RX0);
+  #else
+    Serial.begin(115200);
+  #endif
+
+  // Serial.begin(115200);
 
   // Starts a second serial channel to stream the captured packets
   #ifdef WRITE_PACKETS_SERIAL
@@ -213,21 +219,21 @@ void setup()
 
   Serial.println("ESP-IDF version is: " + String(esp_get_idf_version()));
 
-  //#ifdef HAS_SCREEN
-  //  Serial.println("Has Screen");
-  //#else
-  //  Serial.println("Does not have screen");
-  //#endif
+  #ifdef HAS_SCREEN
+    Serial.println("Has Screen");
+  #else
+    Serial.println("Does not have screen");
+  #endif
 
   #ifdef HAS_SCREEN
     display_obj.RunSetup();
     display_obj.tft.setTextColor(TFT_WHITE, TFT_BLACK);
   #endif
 
-  backlightOff();
 
   // Draw the title screen
   #ifdef HAS_SCREEN
+    backlightOff();
     #ifndef MARAUDER_MINI
       display_obj.drawJpeg("/marauder3L.jpg", 0 , 0);     // 240 x 320 image
     #else
@@ -246,9 +252,9 @@ void setup()
     #endif
   #endif
 
-  backlightOn(); // Need this
 
   #ifdef HAS_SCREEN
+    backlightOn(); // Need this
     delay(2000);
 
     // Do some stealth mode stuff
@@ -275,7 +281,7 @@ void setup()
     display_obj.tft.println(text_table0[1]);
   #endif
 
-  //Serial.println("Internal Temp: " + (String)((temprature_sens_read() - 32) / 1.8));
+  Serial.println("settings");
 
   settings_obj.begin();
 
@@ -284,6 +290,7 @@ void setup()
   //  Serial.println("This is a test Force PMKID: true");
   //else
   //  Serial.println("This is a test Force PMKID: false");
+  Serial.println("wifi");
 
   wifi_scan_obj.RunSetup();
 
@@ -311,6 +318,7 @@ void setup()
     }
   #endif
 
+  Serial.println("portal");
   evil_portal_obj.setup();
 
   #ifdef HAS_BATTERY
